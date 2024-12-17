@@ -26,4 +26,4 @@ jobs:
 
           - name: Push Docker image to Dockerhub
             if: github.ref == 'refs/heads/main'
-            run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin && docker tag android-35:latest mattjhussey/android-35:latest && docker push mattjhussey/android-35:latest
+            run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "mattjhussey" --password-stdin && docker tag android-35:latest mattjhussey/android-35:latest && docker push mattjhussey/android-35:latest
