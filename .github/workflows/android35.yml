@@ -3,8 +3,8 @@ name: Build and Test Docker Image
 
 on:
   push:
-    branches:
-      - main
+#    branches:
+#      - main
     paths:
       - 'android-35/**'
       - '.github/workflows/android35.yml'
