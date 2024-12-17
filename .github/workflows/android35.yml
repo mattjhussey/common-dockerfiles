@@ -27,5 +27,5 @@ jobs:
             run: docker run --rm android-35:latest echo "Docker image built successfully"
 
           - name: Push Docker image to Dockerhub
-            if: github.ref == 'refs/heads/main'
+            # if: github.ref == 'refs/heads/main'
             run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin && docker push android-35:latest
