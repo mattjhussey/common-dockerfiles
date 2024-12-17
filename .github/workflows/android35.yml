@@ -3,8 +3,6 @@ name: Build and Test Docker Image
 
 on:
   push:
-#    branches:
-#      - main
     paths:
       - 'android/35/**'
       - '.github/workflows/android35.yml'
@@ -27,5 +25,5 @@ jobs:
             run: docker run --rm android-35:latest echo "Docker image built successfully"
 
           - name: Push Docker image to Dockerhub
-            # if: github.ref == 'refs/heads/main'
+            if: github.ref == 'refs/heads/main'
             run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin && docker tag android-35:latest mattjhussey/android-35:latest && docker push mattjhussey/android-35:latest
