@@ -1,0 +1,29 @@
+# Always build and test the docker image but only push to dockerhub if on main branch AND changes are made to the android-35 directory or this file
+name: Build and Test Docker Image
+
+on:
+  push:
+    paths:
+      - 'android/35/**'
+      - '.github/workflows/android35.yml'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+
+          - name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v1
+
+          - name: Build and test Docker image
+            run: docker build --file android/35/Dockerfile --tag android-35:latest android/35
+
+          - name: Test Docker image
+            run: docker run --rm android-35:latest echo "Docker image built successfully"
+
+          - name: Push Docker image to Dockerhub
+            if: github.ref == 'refs/heads/main'
+            run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin && docker tag android-35:latest mattjhussey/android-35:latest && docker push mattjhussey/android-35:latest
