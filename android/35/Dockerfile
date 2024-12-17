@@ -33,3 +33,9 @@ FROM eclipse-temurin:17-jdk-noble AS base
     RUN sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}"
     RUN sdkmanager "platform-tools"
     RUN sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}"
+
+# Cleaning
+FROM scratch AS cleanup
+    COPY --from=base / /
+    ENV ANDROID_HOME="/opt/android-sdk"
+    ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/cmdline-tools/tools/bin
