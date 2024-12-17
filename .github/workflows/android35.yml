@@ -6,7 +6,7 @@ on:
 #    branches:
 #      - main
     paths:
-      - 'android-35/**'
+      - 'android/35/**'
       - '.github/workflows/android35.yml'
 
 jobs:
