@@ -2,7 +2,8 @@
 ARG ANDROID_COMPILE_SDK="35"
 ARG ANDROID_BUILD_TOOLS="35.0.0"
 ARG ANDROID_SDK_TOOLS="11076708"
-FROM eclipse-temurin:17-jdk-noble AS base
+ARG BASE_IMAGE="eclipse-temurin:17-jdk-noble"
+FROM ${BASE_IMAGE} AS base
     ARG ANDROID_COMPILE_SDK
     ARG ANDROID_BUILD_TOOLS
     ARG ANDROID_SDK_TOOLS
@@ -35,7 +36,7 @@ FROM eclipse-temurin:17-jdk-noble AS base
     RUN sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}"
 
 # Cleaning
-FROM scratch AS cleanup
+FROM ${BASE_IMAGE} AS cleanup
     COPY --from=base / /
     ENV ANDROID_HOME="/opt/android-sdk"
     ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/cmdline-tools/tools/bin
